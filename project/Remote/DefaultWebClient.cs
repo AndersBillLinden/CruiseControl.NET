@@ -1,4 +1,6 @@
-﻿namespace ThoughtWorks.CruiseControl.Remote
+﻿using System.IO;
+
+namespace ThoughtWorks.CruiseControl.Remote
 {
     using System;
     using System.Collections.Specialized;
@@ -56,7 +58,21 @@
         public byte[] UploadValues(Uri address, string method, NameValueCollection data)
         {
             this.webFunctions.SetCredentials(this.innerClient, address, false);
-            return this.innerClient.UploadValues(address, method, data);
+            var webClient = this.innerClient;
+            byte[] result;
+            try
+            {
+                result = webClient.UploadValues(address, method, data);
+            }
+            catch (WebException e)
+            {
+                var stream = new StreamReader(e.Response.GetResponseStream());
+
+                var str = stream.ReadToEnd();
+                throw new Exception(e.Message + ". Webpage: " + str);
+            }
+
+            return result;
         }
 
         #endregion

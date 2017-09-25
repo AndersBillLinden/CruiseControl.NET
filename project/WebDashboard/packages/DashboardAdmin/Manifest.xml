@@ -7,7 +7,6 @@
     <folder>
       <location>Templates</location>
       <files>
-        <file>AdministerDashboard.vm</file>
         <file>AdminLogin.vm</file>
       </files>
     </folder>

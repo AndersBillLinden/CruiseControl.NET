@@ -36,6 +36,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -67,7 +68,8 @@
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <DocumentationFile>
     </DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
@@ -215,8 +217,6 @@
     <Compile Include="Dashboard\ProjectParametersAction.cs" />
     <Compile Include="Dashboard\IndicatorBarLocation.cs" />
     <Compile Include="IO\ProgramDataFolder.cs" />
-    <Compile Include="Plugins\Administration\AdministerAction.cs" />
-    <Compile Include="Plugins\Administration\AdministerPlugin.cs" />
     <Compile Include="Plugins\Administration\ConfigurationAttribute.cs" />
     <Compile Include="Plugins\Administration\ConfigurationSetting.cs" />
     <Compile Include="Plugins\Administration\FileLocation.cs" />
@@ -850,17 +850,17 @@
     <None Include="dashboard.config">
       <SubType>Designer</SubType>
     </None>
-    <EmbeddedResource Include="Resources\Languages.es.resx" />
+    <EmbeddedResource Include="Resources\Languages.es.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Languages.fr.resx">
       <LastGenOutput>Languages.fr.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Properties\PublishProfiles\buildserver.pubxml" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="templates\ActionException.vm" />
     <None Include="templates\AddProject.vm" />
-    <None Include="templates\AdministerDashboard.vm">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="templates\AdminLogin.vm" />
     <None Include="templates\AllBuilds.vm" />
     <None Include="templates\AuditHistory.vm" />
@@ -915,12 +915,23 @@
     <None Include="Themes\noteWorthy\templates\SiteTemplate.vm" />
     <None Include="Themes\noteWorthy\templates\TopMenu.vm" />
     <None Include="Themes\Obsess\templates\SiteTemplate.vm" />
-    <None Include="Web.config" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Languages.de.resx" />
-    <EmbeddedResource Include="Resources\Languages.pl.resx" />
+    <EmbeddedResource Include="Resources\Languages.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Languages.pl.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Languages.resx">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
@@ -928,7 +939,8 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
-	<Target Name="GatherAllFilesToPublish"></Target>
+  <Target Name="GatherAllFilesToPublish">
+  </Target>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -958,4 +970,5 @@ cp "$(SolutionDir)xsl"/* "$(ProjectDir)xsl"</PostBuildEvent>
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="..\packages\SlowCheetah.2.5.48\build\SlowCheetah.targets" Condition="Exists('..\packages\SlowCheetah.2.5.48\build\SlowCheetah.targets')" />
 </Project>

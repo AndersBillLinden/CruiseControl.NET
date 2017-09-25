@@ -369,7 +369,7 @@ namespace ThoughtWorks.CruiseControl.Core.Sourcecontrol
             if (pr.HasErrorOutput && pr.Failed)
             {
                 Log.Error(pr.StandardError);
-                throw new CruiseControlException(pr.StandardError);
+                throw new CruiseControlException(pr.ErrorOutput);
             }
         }
 

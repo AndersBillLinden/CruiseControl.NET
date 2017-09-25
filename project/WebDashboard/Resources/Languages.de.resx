@@ -301,9 +301,6 @@
   <data name="Packages" xml:space="preserve">
     <value>Pakete</value>
   </data>
-  <data name="PageRendered" xml:space="preserve">
-    <value>Diese Seite wurde um {0} erzeugt.</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Passwort</value>
   </data>
@@ -445,9 +442,6 @@
   <data name="Abort successfully forced for {0}" xml:space="preserve">
     <value>Abbruch für {0} erzwungen</value>
   </data>
-  <data name="Administer Dashboard" xml:space="preserve">
-    <value>Dashboard administrieren</value>
-  </data>
   <data name="Breakers" xml:space="preserve">
     <value>Verursacher</value>
   </data>
@@ -465,9 +459,6 @@
   </data>
   <data name="CheckingModifications" xml:space="preserve">
     <value>Änderungen werden gesucht</value>
-  </data>
-  <data name="Download CCTray" xml:space="preserve">
-    <value>CCTray herunterladen</value>
   </data>
   <data name="Exception" xml:space="preserve">
     <value>Exception</value>

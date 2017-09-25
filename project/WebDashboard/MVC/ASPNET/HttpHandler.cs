@@ -16,11 +16,11 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.MVC.ASPNET
 
 		public void ProcessRequest(HttpContext context)
 		{
-			CruiseObjectSourceInitializer sourceSetup = (CruiseObjectSourceInitializer)context.Session[CruiseObjectSourceInitializerName];
+			var sourceSetup = (CruiseObjectSourceInitializer)context.Session[CruiseObjectSourceInitializerName];
 			ObjectSource objectSource = null;
 			if (sourceSetup == null)
 			{
-				ObjectionStore objectionStore = new ObjectionStore(
+				var objectionStore = new ObjectionStore(
 					new CachingImplementationResolver(new NMockAwareImplementationResolver(), new CachedTypeMap(context.Cache, RESOLVED_TYPE_MAP)),
 					new MaxLengthConstructorSelectionStrategy());
 				sourceSetup = new CruiseObjectSourceInitializer(objectionStore);
@@ -33,7 +33,7 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.MVC.ASPNET
 				string.Format(System.Globalization.CultureInfo.CurrentCulture, "CruiseControl.NET/{0}", Assembly.GetExecutingAssembly().GetName().Version));
 			Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-			IResponse response = ((RequestController)objectSource.GetByType(typeof(RequestController))).Do();
+			var response = ((RequestController)objectSource.GetByType(typeof(RequestController))).Do();
 			response.Process(context.Response);
 		}
 

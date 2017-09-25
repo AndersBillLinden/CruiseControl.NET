@@ -78,6 +78,14 @@ namespace ThoughtWorks.CruiseControl.Core.Util
 			get { return standardError; }
 		}
 
+		public string ErrorOutput
+		{
+		    get
+		    {
+		        return !string.IsNullOrEmpty(standardError) ? standardError : standardOutput ;
+		    }
+		}
+
         /// <summary>
         /// Gets the exit code.	
         /// </summary>
@@ -125,7 +133,10 @@ namespace ThoughtWorks.CruiseControl.Core.Util
         /// <remarks></remarks>
 		public bool HasErrorOutput
 		{
-			get { return !(standardError.Trim() != null && standardError.Trim().Length == 0); }
+            get
+            {
+                return failed && (!string.IsNullOrEmpty(standardError) || !string.IsNullOrEmpty(StandardOutput));
+            }
 		}
 	}
 }

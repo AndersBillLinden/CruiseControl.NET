@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
@@ -121,7 +122,7 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.ServerConnection
                 }
             }
 
-            throw new UnknownServerException(serverSpecifier.ServerName);
+            return locations.First();
         }
 
         public ExternalLink[] GetExternalLinks(IProjectSpecifier projectSpecifier, string sessionToken)

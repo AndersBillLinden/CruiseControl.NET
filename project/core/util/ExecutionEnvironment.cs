@@ -70,7 +70,7 @@ namespace ThoughtWorks.CruiseControl.Core.Util
                 throw new ArgumentOutOfRangeException("application");
             }
 
-            var pgfPath = AppDomain.CurrentDomain.BaseDirectory;
+		    var pgfPath = @"C:\projekt\open_source\CruiseControl.NET\Build\Server"; //AppDomain.CurrentDomain.BaseDirectory;
             return pgfPath;
 		}
 

@@ -211,6 +211,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndersTest.cs" />
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1369,7 +1370,6 @@
     <EmbeddedResource Include="Core\Config\TestAssets\TestCCNET-1991.xml" />
     <Content Include="IntegrationTests\IntegrationTests_Readme.txt" />
     <Content Include="resources\buildlog.xml" />
-    <Content Include="resources\CCNet.git.log.txt" />
     <Content Include="resources\failedbuildlog.xml" />
     <Content Include="resources\IntegrationScenarios\CCNetConfigWithMultiLinebuildArgs.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1431,6 +1431,7 @@
     <Content Include="resources\UnitTestResults.xml" />
     <Content Include="resources\UnitTestResults2.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

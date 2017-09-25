@@ -908,7 +908,10 @@ namespace ThoughtWorks.CruiseControl.Core
                 }
 
                 RunTask(task, result, false);
-                if (result.Failed) break;
+                if (result.Failed)
+                {
+                    Log.Trace(task.ToString() + " failed");
+                }
             }
             CancelTasks(tasksToRun);
         }

@@ -40,29 +40,29 @@ namespace ThoughtWorks.CruiseControl.MSBuild
             this.outputDoc.AppendChild(this.outputDoc.CreateElement(XmlLoggerElements.Build));
             this.currentElement = this.outputDoc.DocumentElement;
 
-            eventSource.ErrorRaised += new BuildErrorEventHandler(eventSource_ErrorRaised);
-            eventSource.WarningRaised += new BuildWarningEventHandler(eventSource_WarningRaised);
+            eventSource.ErrorRaised += eventSource_ErrorRaised;
+            eventSource.WarningRaised += eventSource_WarningRaised;
 
-            eventSource.BuildStarted += new BuildStartedEventHandler(eventSource_BuildStartedHandler);
-            eventSource.BuildFinished += new BuildFinishedEventHandler(eventSource_BuildFinishedHandler);
+            eventSource.BuildStarted += eventSource_BuildStartedHandler;
+            eventSource.BuildFinished += eventSource_BuildFinishedHandler;
 
             if (Verbosity != LoggerVerbosity.Quiet) // minimal and above
             {
-                eventSource.MessageRaised += new BuildMessageEventHandler(eventSource_MessageHandler);
-                eventSource.CustomEventRaised += new CustomBuildEventHandler(eventSource_CustomBuildEventHandler);
+                eventSource.MessageRaised += eventSource_MessageHandler;
+                eventSource.CustomEventRaised += eventSource_CustomBuildEventHandler;
 
-                eventSource.ProjectStarted += new ProjectStartedEventHandler(eventSource_ProjectStartedHandler);
-                eventSource.ProjectFinished += new ProjectFinishedEventHandler(eventSource_ProjectFinishedHandler);
+                eventSource.ProjectStarted += eventSource_ProjectStartedHandler;
+                eventSource.ProjectFinished += eventSource_ProjectFinishedHandler;
 
                 if (Verbosity != LoggerVerbosity.Minimal) // normal and above
                 {
-                    eventSource.TargetStarted += new TargetStartedEventHandler(eventSource_TargetStartedHandler);
-                    eventSource.TargetFinished += new TargetFinishedEventHandler(eventSource_TargetFinishedHandler);
+                    eventSource.TargetStarted += eventSource_TargetStartedHandler;
+                    eventSource.TargetFinished += eventSource_TargetFinishedHandler;
 
                     if (Verbosity != LoggerVerbosity.Normal) // only detailed and diagnostic
                     {
-                        eventSource.TaskStarted += new TaskStartedEventHandler(eventSource_TaskStartedHandler);
-                        eventSource.TaskFinished += new TaskFinishedEventHandler(eventSource_TaskFinishedHandler);
+                        eventSource.TaskStarted += eventSource_TaskStartedHandler;
+                        eventSource.TaskFinished += eventSource_TaskFinishedHandler;
                     }
                 }
             }
@@ -70,7 +70,7 @@ namespace ThoughtWorks.CruiseControl.MSBuild
 
         public override void Shutdown()
         {
-            if (String.IsNullOrEmpty(this.outputPath))
+            if (string.IsNullOrEmpty(this.outputPath))
             {
                 // Output to console.
                 Console.WriteLine(this.outputDoc.OuterXml);
@@ -152,7 +152,7 @@ namespace ThoughtWorks.CruiseControl.MSBuild
             // use the default root for the build element
             if (elementName != XmlLoggerElements.Build)
             {
-                XmlElement stageElement = this.outputDoc.CreateElement(elementName);
+                var stageElement = this.outputDoc.CreateElement(elementName);
                 this.currentElement.AppendChild(stageElement);
                 this.currentElement = stageElement;
             }
@@ -165,7 +165,7 @@ namespace ThoughtWorks.CruiseControl.MSBuild
 
         private void LogStageFinished(bool succeeded, DateTime timeStamp)
         {
-            DateTime startTime = DateTime.Parse(currentElement.GetAttribute(XmlLoggerAttributes.StartTime), DateTimeFormatInfo.InvariantInfo);
+            var startTime = DateTime.Parse(currentElement.GetAttribute(XmlLoggerAttributes.StartTime), DateTimeFormatInfo.InvariantInfo);
             SetAttribute(currentElement, timeStamp - startTime, XmlLoggerAttributes.ElapsedTime);
             SetAttribute(currentElement, (int)(timeStamp - startTime).TotalSeconds, XmlLoggerAttributes.ElapsedSeconds);
 
@@ -173,7 +173,7 @@ namespace ThoughtWorks.CruiseControl.MSBuild
 
             if (this.currentElement.ParentNode is XmlElement)
             {
-                XmlElement parentElement = (XmlElement)this.currentElement.ParentNode;
+                var parentElement = (XmlElement)this.currentElement.ParentNode;
 
                 // don't put element's that don't contain any messages
                 if (!currentElement.HasChildNodes && Verbosity != LoggerVerbosity.Detailed && Verbosity != LoggerVerbosity.Diagnostic)
@@ -185,7 +185,7 @@ namespace ThoughtWorks.CruiseControl.MSBuild
 
         private void LogErrorOrWarning(string messageType, string message, string code, string file, int lineNumber, int columnNumber, DateTime timestamp)
         {
-            XmlElement messageElement = this.outputDoc.CreateElement(messageType);
+            var messageElement = this.outputDoc.CreateElement(messageType);
             SetAttribute(messageElement, code, XmlLoggerAttributes.Code);
 
             SetAttribute(messageElement, file, XmlLoggerAttributes.File);
@@ -214,7 +214,7 @@ namespace ThoughtWorks.CruiseControl.MSBuild
                     || Verbosity == LoggerVerbosity.Quiet))
                 return;
 
-            XmlElement messageElement = this.outputDoc.CreateElement(messageType);
+            var messageElement = this.outputDoc.CreateElement(messageType);
 
             SetAttribute(messageElement, importance, XmlLoggerAttributes.Importance);
 
@@ -230,7 +230,7 @@ namespace ThoughtWorks.CruiseControl.MSBuild
         {
             if (!string.IsNullOrEmpty(message))
             {
-                string temp = message.Replace("&", "&amp;");
+                var temp = message.Replace("&", "&amp;");
 
                 if (escapeLtGt)
                 {
@@ -246,29 +246,29 @@ namespace ThoughtWorks.CruiseControl.MSBuild
             if (obj == null)
                 return;
 
-            Type t = obj.GetType();
+            var t = obj.GetType();
             if (t == typeof(int))
             {
                 element.SetAttribute(name, obj.ToString());
             }
             else if (t == typeof(DateTime))
             {
-                DateTime dateTime = (DateTime)obj;
+                var dateTime = (DateTime)obj;
                 element.SetAttribute(name, dateTime.ToString("G", DateTimeFormatInfo.InvariantInfo));
             }
             else if (t == typeof(TimeSpan))
             {
-                double seconds = ((TimeSpan)obj).TotalSeconds;
-                TimeSpan whole = TimeSpan.FromSeconds(Math.Truncate(seconds));
+                var seconds = ((TimeSpan)obj).TotalSeconds;
+                var whole = TimeSpan.FromSeconds(Math.Truncate(seconds));
                 element.SetAttribute(name, whole.ToString());
             }
-            else if (t == typeof(Boolean))
+            else if (t == typeof(bool))
             {
                 element.SetAttribute(name, obj.ToString().ToLower());
             }
             else if (t == typeof(MessageImportance))
             {
-                MessageImportance importance = (MessageImportance)obj;
+                var importance = (MessageImportance)obj;
                 element.SetAttribute(name, importance.ToString().ToLower());
             }
             else

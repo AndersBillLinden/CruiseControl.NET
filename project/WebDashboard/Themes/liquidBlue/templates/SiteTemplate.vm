@@ -44,7 +44,6 @@
 				    Rendered: $renderedAt
 			    </div>
 			    <div class="right">
-			        Version: $dashboardversion
 			    </div>
 			    <div>
 				    An Open Source Project sponsored by <a href="http://www.thoughtworks.com/">ThoughtWorks</a>

@@ -255,7 +255,47 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         Throws.TypeOf<System.FormatException>());
 		}
 
-		[Test]
+	    [Test]
+	    public void FooTest()
+	    {
+			const string xml = "<exec executable=\"C:\\temp\\test.exe\"><buildArgs></buildArgs></exec>";
+
+	        task = (ExecutableTask) NetReflector.Read(xml);
+
+			var result = (IntegrationResult) IntegrationResult();
+			result.Label = "1.0";
+			result.BuildCondition = BuildCondition.ForceBuild;
+			result.WorkingDirectory = @"c:\temp\";
+			result.ArtifactDirectory = @"c:\temp\";
+
+			task.Run(result);
+
+	        Assert.AreEqual(IntegrationStatus.Failure, result.Status);
+
+            Assert.IsFalse(task.WasSuccessful);
+        }
+
+	    [Test]
+	    public void FooTest2()
+	    {
+			const string xml = @"<exec executable='MSTest.exe'><baseDirectory>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE</baseDirectory><buildArgs>/testcontainer:E:\git\actor_repo\ActorShared\TestActorShared\bin\Release\TestActorShared.dll /runconfig:E:\git\actor_repo\ActorShared\TestActorShared\Local.testsettings /resultsfile:E:\testresults\test_actor_shared_results.trx</buildArgs><buildTimeoutSeconds>600</buildTimeoutSeconds></exec>";
+
+	        task = (ExecutableTask) NetReflector.Read(xml);
+
+			var result = (IntegrationResult) IntegrationResult();
+			result.Label = "1.0";
+			result.BuildCondition = BuildCondition.ForceBuild;
+			result.WorkingDirectory = @"c:\temp\";
+			result.ArtifactDirectory = @"c:\temp\";
+
+			task.Run(result);
+
+	        Assert.AreEqual(IntegrationStatus.Failure, result.Status);
+
+            Assert.IsFalse(task.WasSuccessful);
+        }
+
+	    [Test]
 		public void ShouldPassSuccessExitCodesToProcessExecutor()
 		{
 			CollectingConstraint constraint = new CollectingConstraint();

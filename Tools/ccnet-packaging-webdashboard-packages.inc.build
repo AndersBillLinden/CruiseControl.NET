@@ -24,7 +24,6 @@
 			</fileset>
 			<fileset basedir="${src.dir}/WebDashboard/Templates">
 				<include name="AdminLogin.vm"/>
-				<include name="AdministerDashboard.vm"/>
 			</fileset>
 		</zip>
 	</target>

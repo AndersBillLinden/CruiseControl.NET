@@ -72,11 +72,7 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Configuration
 		public static string CalculateDashboardConfigPath()
 		{
 			string path = ConfigurationManager.AppSettings[DashboardConfigAppSettingKey];
-			if (path == null || path == string.Empty)
-			{
-				path = DefaultDashboardConfigLocation;
-			}
-			if (! Path.IsPathRooted(path))
+			if (!Path.IsPathRooted(path))
 			{
 				path = ProgramDataFolder.MapPath(path);
 			}

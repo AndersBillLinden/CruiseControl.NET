@@ -108,7 +108,7 @@ namespace ThoughtWorks.CruiseControl.Core.Sourcecontrol
 			}
 			else if (result.HasErrorOutput)
 			{
-				Log.Warning(string.Format(System.Globalization.CultureInfo.CurrentCulture,"Source control wrote output to stderr: {0}", result.StandardError));
+				Log.Warning(string.Format(System.Globalization.CultureInfo.CurrentCulture,"Source control wrote output to stderr: {0}", result.ErrorOutput));
 			}
 			return result;
 		}

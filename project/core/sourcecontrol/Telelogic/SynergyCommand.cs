@@ -506,7 +506,7 @@ namespace ThoughtWorks.CruiseControl.Core.Sourcecontrol.Telelogic
 
 				if (result.HasErrorOutput)
 				{
-					Log.Warning(string.Format(System.Globalization.CultureInfo.CurrentCulture,"Synergy wrote output to stderr: {0}", result.StandardError));
+					Log.Warning(string.Format(System.Globalization.CultureInfo.CurrentCulture,"Synergy wrote output to stderr: {0}", result.ErrorOutput));
 				}
 
 				throw(new CruiseControlException(message));

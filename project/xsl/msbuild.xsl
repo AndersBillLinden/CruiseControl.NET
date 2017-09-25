@@ -8,13 +8,6 @@
 			<xsl:when test="count($buildresults) > 0">
 				<xsl:apply-templates select="$buildresults" />
 			</xsl:when>
-			<xsl:otherwise>
-				<h2>Log does not contain any XML output from MSBuild.</h2>
-				<p>
-					Please make sure that MSBuild is executed using the XmlLogger
-					(use the argument: <b style="white-space:nowrap">/logger:Kobush.Build.Logging.XmlLogger,Kobush.Build.dll</b>).
-				</p>
-			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
 

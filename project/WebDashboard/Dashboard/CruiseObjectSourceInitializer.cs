@@ -6,7 +6,6 @@ using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.WebDashboard.Configuration;
-using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ActionDecorators;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
@@ -32,9 +31,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 		{
 			_objectionManager.AddInstanceForType(typeof(ObjectSource), _objectionManager);
 
-			ObjectSource objectSource = UpdateObjectSourceForRequest(context);
+			var objectSource = UpdateObjectSourceForRequest(context);
 
-			DefaultUrlBuilder urlBuilder = new DefaultUrlBuilder();
+			var urlBuilder = new DefaultUrlBuilder();
 			_objectionManager.AddInstanceForType(typeof(IUrlBuilder),
 												new AbsolutePathUrlBuilderDecorator(
 													urlBuilder,
@@ -46,19 +45,19 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 
 			_objectionManager.SetDependencyImplementationForType(typeof(PathMappingMultiTransformer), typeof(IMultiTransformer), typeof(HtmlAwareMultiTransformer));
 
-			IDashboardConfiguration config = GetDashboardConfiguration(objectSource, context);
+			var config = GetDashboardConfiguration(objectSource, context);
 			_objectionManager.AddInstanceForType(typeof(IDashboardConfiguration), config);
 
-			IRemoteServicesConfiguration remoteServicesConfig = config.RemoteServices;
+			var remoteServicesConfig = config.RemoteServices;
 			_objectionManager.AddInstanceForType(typeof(IRemoteServicesConfiguration), remoteServicesConfig);
 
-			IPluginConfiguration pluginConfig = config.PluginConfiguration;
+			var pluginConfig = config.PluginConfiguration;
 			_objectionManager.AddInstanceForType(typeof(IPluginConfiguration), pluginConfig);
 
-			ISessionRetriever sessionRetriever = pluginConfig.SessionStore.RetrieveRetriever();
+			var sessionRetriever = pluginConfig.SessionStore.RetrieveRetriever();
 			_objectionManager.AddInstanceForType(typeof(ISessionRetriever), sessionRetriever);
 
-			ISessionStorer sessionStorer = pluginConfig.SessionStore.RetrieveStorer();
+			var sessionStorer = pluginConfig.SessionStore.RetrieveStorer();
 			_objectionManager.AddInstanceForType(typeof(ISessionStorer), sessionStorer);
 
 			LoadFarmPlugins(pluginConfig);
@@ -72,7 +71,7 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 			}
 			catch (ApplicationException)
 			{
-				IPlugin latestBuildPlugin = (IPlugin)objectSource.GetByType(typeof(LatestBuildReportProjectPlugin));
+				var latestBuildPlugin = (IPlugin)objectSource.GetByType(typeof(LatestBuildReportProjectPlugin));
 				AddActionInstance(latestBuildPlugin.NamedActions[0])
 					.Decorate(typeof(ServerCheckingProxyAction))
 					.Decorate(typeof(ProjectCheckingProxyAction))
@@ -141,10 +140,10 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 		public ObjectSource UpdateObjectSourceForRequest(HttpContext context)
 		{
 			_objectionManager.AddInstanceForType(typeof(HttpContext), context);
-			HttpRequest request = context.Request;
+			var request = context.Request;
 			_objectionManager.AddInstanceForType(typeof(HttpRequest), request);
 
-			NameValueCollection parametersCollection = new NameValueCollection();
+			var parametersCollection = new NameValueCollection();
 			parametersCollection.Add(request.QueryString);
 			parametersCollection.Add(request.Form);
 			_objectionManager.AddInstanceForType(typeof(IRequest),
@@ -157,9 +156,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 		private void LoadFarmPlugins(IPluginConfiguration pluginConfig)
 		{
 			var LoadedPlugins = new System.Collections.Generic.List<string>();
-			bool UnknownPluginDetected = false;
+			var UnknownPluginDetected = false;
 
-			foreach (IPlugin plugin in pluginConfig.FarmPlugins)
+			foreach (var plugin in pluginConfig.FarmPlugins)
 			{
 				if (plugin == null)
 				{
@@ -169,9 +168,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 				{
 					LoadedPlugins.Add(plugin.LinkDescription);
 
-					foreach (INamedAction action in plugin.NamedActions)
+					foreach (var action in plugin.NamedActions)
 					{
-						if ((action as INoSiteTemplateAction) == null)
+						if (!(action is INoSiteTemplateAction))
 						{
 							AddActionInstance(action)
 								.Decorate(typeof(CruiseActionProxyAction))
@@ -196,9 +195,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 		private void LoadServerPlugins(IPluginConfiguration pluginConfig)
 		{
 			var LoadedPlugins = new System.Collections.Generic.List<string>();
-			bool UnknownPluginDetected = false;
+			var UnknownPluginDetected = false;
 
-			foreach (IPlugin plugin in pluginConfig.ServerPlugins)
+			foreach (var plugin in pluginConfig.ServerPlugins)
 			{
 				if (plugin == null)
 				{
@@ -207,9 +206,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 				else
 				{
 					LoadedPlugins.Add(plugin.LinkDescription);
-					foreach (INamedAction action in plugin.NamedActions)
+					foreach (var action in plugin.NamedActions)
 					{
-						if ((action as INoSiteTemplateAction) == null)
+						if (!(action is INoSiteTemplateAction))
 						{
 							AddActionInstance(action)
 								.Decorate(typeof(ServerCheckingProxyAction))
@@ -236,9 +235,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 		private void LoadProjectPlugins(IPluginConfiguration pluginConfig)
 		{
 			var LoadedPlugins = new System.Collections.Generic.List<string>();
-			bool UnknownPluginDetected = false;
+			var UnknownPluginDetected = false;
 
-			foreach (IPlugin plugin in pluginConfig.ProjectPlugins)
+			foreach (var plugin in pluginConfig.ProjectPlugins)
 			{
 				if (plugin == null)
 				{
@@ -247,9 +246,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 				else
 				{
 					LoadedPlugins.Add(plugin.LinkDescription);
-					foreach (INamedAction action in plugin.NamedActions)
+					foreach (var action in plugin.NamedActions)
 					{
-						if ((action as INoSiteTemplateAction) == null)
+						if (!(action is INoSiteTemplateAction))
 						{
 							AddActionInstance(action)
 								.Decorate(typeof(ServerCheckingProxyAction))
@@ -276,9 +275,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 		private void LoadBuildPlugins(IPluginConfiguration pluginConfig)
 		{
 			var LoadedPlugins = new System.Collections.Generic.List<string>();
-			bool UnknownPluginDetected = false;
+			var UnknownPluginDetected = false;
 
-			foreach (IBuildPlugin plugin in pluginConfig.BuildPlugins)
+			foreach (var plugin in pluginConfig.BuildPlugins)
 			{
 				if (plugin == null)
 				{
@@ -287,9 +286,9 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 				else
 				{
 					LoadedPlugins.Add(plugin.LinkDescription);
-					foreach (INamedAction action in plugin.NamedActions)
+					foreach (var action in plugin.NamedActions)
 					{
-						if ((action as INoSiteTemplateAction) == null)
+						if (!(action is INoSiteTemplateAction))
 						{
 							_objectionManager.AddInstanceForName(action.ActionName.ToLowerInvariant() + "_CONDITIONAL_GET_FINGERPRINT_CHAIN", action.Action)
 								.Decorate(typeof(CruiseActionProxyAction))
@@ -324,16 +323,13 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 
 		private void LoadSecurityPlugins(IPluginConfiguration pluginConfig, ISessionStorer sessionStorer)
 		{
-			var LoadedPlugins = new System.Collections.Generic.List<string>();
-			bool UnknownPluginDetected = false;
-
-			// Security plugins (for handling authentication)
-			foreach (ISecurityPlugin plugin in pluginConfig.SecurityPlugins)
+		    // Security plugins (for handling authentication)
+			foreach (var plugin in pluginConfig.SecurityPlugins)
 			{
 				plugin.SessionStorer = sessionStorer;
-				foreach (INamedAction action in plugin.NamedActions)
+				foreach (var action in plugin.NamedActions)
 				{
-					if ((action as INoSiteTemplateAction) == null)
+					if (!(action is INoSiteTemplateAction))
 					{
 						AddActionInstance(action)
 							.Decorate(typeof(ServerCheckingProxyAction))
@@ -352,8 +348,6 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 					}
 				}
 			}
-
-			if (UnknownPluginDetected) ThrowExceptionShowingLoadedPlugins(LoadedPlugins, "SecurityPlugins");
 		}
 
 		private void AddRequiredSecurityAction(string actionName, Type actionType)
@@ -374,14 +368,14 @@ namespace ThoughtWorks.CruiseControl.WebDashboard.Dashboard
 
 		private void ThrowExceptionShowingLoadedPlugins(System.Collections.Generic.List<string> loadedPlugins, string pluginTypeName)
 		{
-			System.Text.StringBuilder ErrorDescription = new System.Text.StringBuilder();
+			var ErrorDescription = new System.Text.StringBuilder();
 
 			ErrorDescription.AppendLine(string.Format(System.Globalization.CultureInfo.CurrentCulture, "Error loading {0} ", pluginTypeName));
 			ErrorDescription.AppendLine("Unknown pluginnames detected");
 			ErrorDescription.AppendLine("Check your config");
 			ErrorDescription.AppendLine("The following plugins were loaded successfully : ");
 
-			foreach (string item in loadedPlugins)
+			foreach (var item in loadedPlugins)
 			{
 				ErrorDescription.AppendLine(string.Format(System.Globalization.CultureInfo.CurrentCulture, " * {0}", item));
 			}

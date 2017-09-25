@@ -202,7 +202,7 @@ namespace ThoughtWorks.CruiseControl.Core
 				{
 					return executionEnvironment.EnsurePathIsRooted(Path.Combine(Name, DefaultArtifactSubDirectory));
 				}
-				return new DirectoryInfo(configuredArtifactDirectory).FullName;
+				return new DirectoryInfo(@"C:\projekt\open_source\CruiseControl.NET\Build\Server").FullName;
 			}
 		}
 

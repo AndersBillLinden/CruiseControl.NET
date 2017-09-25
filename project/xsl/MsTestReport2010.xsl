@@ -142,47 +142,6 @@ text-align: right;
                   select="count(*[local-name()='Results']/*[local-name()='UnitTestResult'][@outcome !=  'Passed'])" />
 	<xsl:variable name="count_badones2"
                   select="count(*[local-name()='Results']/*[local-name()='UnitTestResult'][not(@outcome)] )  " />     
-   <xsl:if test="$count_badones + $count_badones2 > 0">
-  
-       <h2>Failed tests </h2>
-	    <table border="1"
-	           cellPadding="2"
-	           cellSpacing="0"
-	           >
-	      <thead style="text-align: center; font-size: large; font-weight:bold;background-color:#FF4000">
-	        <td>Test List Name</td>
-	        <td>Test Name</td>
-	        <td>Test Result</td>
-	        <td>Test Duration</td>
-	        <td>Class Name</td>
-	        <td>Category</td>	        
-	      </thead>
-	        <tr>
-	             <xsl:apply-templates select="*[local-name()='Results']/*[local-name()='UnitTestResult'][@outcome='Failed']" >
-		         </xsl:apply-templates>
-	         </tr>
-	         <tr>
-	             <xsl:apply-templates select="*[local-name()='Results']/*[local-name()='UnitTestResult'][not(@outcome)]" >
-		         </xsl:apply-templates>	         
-	         </tr>			 
-	    </table>
-    </xsl:if>
-
-
-	<h3>Longest running tests</h3>
-	<!--
-		<xsl:apply-templates select="*[local-name()='Results']/*[local-name()='UnitTestResult'] " >
-		
-		 </xsl:apply-templates>
--->
-     <ol>
-     <xsl:for-each select="*[local-name()='Results']/*[local-name()='UnitTestResult']">
-			      <xsl:sort select="@duration"  order="descending"/>
-			      <xsl:if test="position() &lt; 21">
-				      <li><xsl:value-of select= "@duration"/> - <xsl:value-of select= "@testName"/></li> 
-			       </xsl:if>
-     </xsl:for-each>
-     </ol>
     
  <!-- full test overview -->
     <xsl:apply-templates select="*[local-name()='Results']">

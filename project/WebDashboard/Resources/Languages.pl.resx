@@ -300,9 +300,6 @@
   <data name="Packages" xml:space="preserve">
     <value>Paczki</value>
   </data>
-  <data name="PageRendered" xml:space="preserve">
-    <value>Strona wygenerowana {0}</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Hasło</value>
   </data>
@@ -444,9 +441,6 @@
   <data name="Abort successfully forced for {0}" xml:space="preserve">
     <value>Udało się wymusić przerwanie {0}</value>
   </data>
-  <data name="Administer Dashboard" xml:space="preserve">
-    <value>Ustawienia tablicy</value>
-  </data>
   <data name="Breakers" xml:space="preserve">
     <value>Psuje</value>
   </data>
@@ -464,9 +458,6 @@
   </data>
   <data name="CheckingModifications" xml:space="preserve">
     <value>Sprawdzanie zmian</value>
-  </data>
-  <data name="Download CCTray" xml:space="preserve">
-    <value>Pobierz CCTray</value>
   </data>
   <data name="Exception" xml:space="preserve">
     <value>Wyjątek</value>

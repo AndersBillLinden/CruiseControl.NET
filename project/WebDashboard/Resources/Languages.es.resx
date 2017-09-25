@@ -301,9 +301,6 @@
   <data name="Packages" xml:space="preserve">
     <value>Paquetes</value>
   </data>
-  <data name="PageRendered" xml:space="preserve">
-    <value>Esta pagina fue generada a las {0}.</value>
-  </data>
   <data name="Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>
@@ -445,9 +442,6 @@
   <data name="Abort successfully forced for {0}" xml:space="preserve">
     <value>Fue abortado {0}</value>
   </data>
-  <data name="Administer Dashboard" xml:space="preserve">
-    <value>Administración del Dashboard</value>
-  </data>
   <data name="Breakers" xml:space="preserve">
     <value>Breakers</value>
     <comment>I'm open for a better translation, would have to be replaced everywhere else too.</comment>
@@ -466,9 +460,6 @@
   </data>
   <data name="CheckingModifications" xml:space="preserve">
     <value>Revisando Modificaciones</value>
-  </data>
-  <data name="Download CCTray" xml:space="preserve">
-    <value>Descargar CCTray</value>
   </data>
   <data name="Exception" xml:space="preserve">
     <value>Excepción</value>
