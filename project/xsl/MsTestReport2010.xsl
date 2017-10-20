@@ -300,8 +300,7 @@ text-align: right;
 
   <xsl:template match="*[local-name()='ErrorInfo']">
     <tr>
-      <td colspan="6"
-          bgcolor="#FF9900">
+      <td colspan="6">
         <b>
           <xsl:value-of select="./*[local-name()='Message']" />
         </b>

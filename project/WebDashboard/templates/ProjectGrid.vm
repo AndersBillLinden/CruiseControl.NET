@@ -96,18 +96,13 @@
     </tr>
     #end
     <tr class="ProjectGridHeader">
-      #if ($wholeFarm)
-      <th class="left">$translations.Translate("Server")</th>
-      #end
-      <th class="{sorter:false}">$translations.Translate("Admin")</th>	  
-      <th class="left">$translations.Translate("Project Name")</th>
-      <th>$translations.Translate("Last Build Status")</th>
-      <th>$translations.Translate("Last Build Time")</th>
-      <th>$translations.Translate("Next Build Time")</th>
-      <th>$translations.Translate("Last Build Label")</th>
-      <th>$translations.Translate("CCNet Status")</th>
-      <th>$translations.Translate("Activity")</th>
-      <th class="{sorter:false}">$translations.Translate("Messages")</th>      
+      <th class="{sorter:false}"></th>	  
+      <th class="left {sorter:false}">Project</th>
+      <th class="{sorter:false}">$translations.Translate("Last Build Status")</th>
+      <th class="{sorter:false}">$translations.Translate("Last Build Time")</th>
+      <th class="{sorter:false}">$translations.Translate("Next Build Time")</th>
+      <th class="{sorter:false}">$translations.Translate("Activity")</th>
+      <th class="{sorter:false}">$translations.Translate("Messages")</th> 
     </tr>
   </thead>
   <tbody>
@@ -117,10 +112,7 @@
     #set ($RowId = $RowId + 1)
 
         <tr id="projectData$RowId">
-            #if ($wholeFarm)
-            <td class="Black left">$projectGridRow.ServerName</td>
-            #end
-            <td>
+            <td style="width:1px; white-space: nowrap">
               <form method="post"
                     style="margin-bottom:0px;">
                 <input type="hidden"
@@ -156,8 +148,6 @@
             <td class="$projectGridRow.BuildStatusHtmlColor">$translations.Translate($projectGridRow.BuildStatus)</td>
             <td><a href="server/$projectGridRow.ServerName/project/$projectGridRow.Name/ViewLatestBuildReport.aspx">$projectGridRow.LastBuildDate</a></td>
             <td>$translations.Translate($projectGridRow.NextBuildTime)</td>
-            <td>$translations.Translate($projectGridRow.LastBuildLabel)</td>
-            <td class="status$projectGridRow.Status">$translations.Translate($projectGridRow.Status)</td>
             <td class="activity$projectGridRow.Activity">$translations.Translate($projectGridRow.Activity.ToString())</td>
             <td class="left">
               <ul>
@@ -188,7 +178,7 @@
   #if ($barAtBottom)
   <tfoot>
     <tr>
-      <td colspan="10">
+      <td colspan="8">
         <table  id="BuildPercentage">
           <tr title="Percentage of successful builds : $OKPercentToolTip%">
             #if ($OKPercent == 50)

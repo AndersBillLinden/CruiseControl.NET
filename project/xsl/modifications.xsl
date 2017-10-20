@@ -7,19 +7,6 @@
     <xsl:variable name="modification.list" select="/cruisecontrol/modifications/modification"/>
 
     <xsl:template match="/">
-        <table class="section-table" cellpadding="2" cellspacing="0" border="0" width="98%">
-            <!-- Modifications -->
-            <tr>
-                <td class="sectionheader" colspan="5">
-                    Modifications since last build (<xsl:value-of select="count($modification.list)"/>)
-                </td>
-            </tr>
-
-            <xsl:apply-templates select="$modification.list">
-                <xsl:sort select="date" order="descending" data-type="text" />
-            </xsl:apply-templates>
-            
-        </table>
     </xsl:template>
 
     <!-- Modifications template -->

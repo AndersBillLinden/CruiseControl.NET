@@ -15,16 +15,6 @@
 		<table class="section-table" cellpadding="2" cellspacing="0" border="0" width="98%">
 			<tr>
 				<td class="sectionheader">
-					Build started <xsl:value-of select="@startTime"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<xsl:apply-templates/>
-				</td>
-			</tr>
-			<tr>
-				<td class="sectionheader">
 					<xsl:choose>
 						<xsl:when test="@success = 'false'">
 							Build FAILED
@@ -41,12 +31,8 @@
 					<xsl:variable name="warnings" select="//warning" />
 					<xsl:if test="count($errors)+count($warnings) > 0">
 						<xsl:apply-templates select="$errors"/>
-						<xsl:apply-templates select="$warnings"/>
 						<div style="color:orangered">
 							<xsl:value-of select="count($errors)"/> Error(s)
-						</div>
-						<div style="color:blue">
-							<xsl:value-of select="count($warnings)"/> Warning(s)
 						</div>
 					</xsl:if>
 					Time elapsed <xsl:value-of select="@elapsedTime"/>
